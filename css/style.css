@@ -21,12 +21,17 @@
 memorygame-card {
     display: block;
     position: relative;
-    width: 150px;
-    height: 150px;
+    width: 10vw;
+    height: 10vw;
+    max-width: 150px;
+    max-height: 150px;
+    min-width: 60px;
+    min-height: 60px;
     border-radius: 5%;
     transition: transform 1000ms;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.24);
     transform-style: preserve-3d;
+    margin: 1vw;
 }
 
 memorygame-card[faceUp] {
