@@ -1,3 +1,30 @@
-h1 {
-    color: crimson;
+memorygame-card {
+    display: block;
+    position: relative;
+    width: 150px;
+    height: 150px;
+    border-radius: 5%;
+    transition: transform 1000ms;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.24);
+    transform-style: preserve-3d;
 }
+
+memorygame-card[faceUp] {
+    transition: transform 1000ms;
+    transform: rotateY(180deg);
+}
+
+memorygame-card .back, memorygame-card .front {
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    border-radius: 5%;
+    backface-visibility: hidden;
+}
+
+memorygame-card .front {
+    transform: rotateY(-180deg);
+}
+
+
