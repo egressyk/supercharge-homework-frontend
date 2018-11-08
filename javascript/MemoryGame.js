@@ -57,7 +57,13 @@ export class MemoryGame {
 
     _handlePair() {
         this.pickedCards.forEach(card => card.removeEventListener('click', this._onClickCard));
-        this.pickedCards = [];
+        this.pickedCards[1].addEventListener('transitionend', () => {
+            if (this._isGameOver()) {
+                this._handleGameOver();
+            } else {
+                this.pickedCards = [];
+            }
+        });
     }
 
     _handleNoPair() {
@@ -65,5 +71,13 @@ export class MemoryGame {
             this.pickedCards.forEach(card => card.flip());
             this.pickedCards = [];
         }, 2000);
+    }
+
+    _isGameOver() {
+        return !this.deckOfCards.some(card => !card.hasAttribute('faceUp'));
+    }
+
+    _handleGameOver() {
+        alert("WOW, you won!");
     }
 }
