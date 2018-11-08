@@ -4,6 +4,7 @@ export class MemoryGame {
         this.numberOfPairs = numberOfPairs;
         this.deckOfCards = [];
         this.pickedCards = [];
+        this.initDeck();
     }
 
     static get _CARD_SYMBOLS() {
@@ -25,14 +26,18 @@ export class MemoryGame {
         return document.querySelector('#game-board');
     }
 
-    startGame() {
+    initDeck() {
         for (let i = 0; i < this.numberOfPairs * 2; i++) {
             const symbolId = Math.floor(i / 2);
             const rawCard = document.createElement('memorygame-card');
             const preparedCard = this._setupCard(rawCard, symbolId);
             this.deckOfCards.push(preparedCard);
-            MemoryGame._CARD_BOARD.appendChild(preparedCard);
         }
+    }
+
+    startGame() {
+        this._shuffleDeck();
+        this.deckOfCards.forEach((card) => MemoryGame._CARD_BOARD.appendChild(card));
     }
 
     _setupCard(card, symbolId) {
@@ -40,6 +45,16 @@ export class MemoryGame {
         card.frontImageUrl = `./resources/images/cards/${MemoryGame._CARD_SYMBOLS[symbolId]}.png`;
         card.addEventListener('click', this._onClickCard.bind(this));
         return card;
+    }
+
+    _shuffleDeck() {
+        const shuffledDeck = [];
+        while (this.deckOfCards.length > 0) {
+            const randIndex = Math.floor(Math.random() * this.deckOfCards.length);
+            const pickedCard = this.deckOfCards.splice(randIndex, 1)[0];
+            shuffledDeck.push(pickedCard);
+        }
+        this.deckOfCards = shuffledDeck;
     }
 
     _onClickCard(event) {
