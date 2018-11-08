@@ -1,6 +1,9 @@
 export class MemoryGame {
 
     constructor(numberOfPairs) {
+        if (numberOfPairs > MemoryGame._CARD_SYMBOLS.length) {
+            throw new Error(`Exceeded maximum number of pairs (max: ${MemoryGame._CARD_SYMBOLS.length}`);
+        }
         this.numberOfPairs = numberOfPairs;
         this.deckOfCards = [];
         this.pickedCards = [];
